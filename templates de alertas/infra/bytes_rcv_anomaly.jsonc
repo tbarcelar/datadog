@@ -1,0 +1,33 @@
+{
+    "id": 73930274,
+    "name": "[infra] Anomaly: Trafego de rede - volume de dados recebidos",
+    "type": "query alert",
+    "query": "avg(last_1d):anomalies(sum:system.net.bytes_rcvd{env:prd OR env:prod OR env:producao OR env:production} by {host,device}, 'agile', 2, direction='both', interval=300, alert_window='last_1h', seasonality='weekly', timezone='UTC', count_default_zero='true') >= 0.85",
+    "message": "{{#is_alert}}{{override_priority 'P5'}}\n{{override_priority 'P1'}}\n### {{local_time 'last_triggered_at' 'America/Sao_Paulo'}}\n## Volume de dados recebidos {{value}} para o padrão semanal.\n\n- Dispositivo: **{{device.name}}**\n- Host: **{{host.name}}**\n- Aplicação: **{{host.application}}**\nPrimeiro acionamento em: **{{local_time 'first_triggered_at' 'America/Sao_Paulo'}}**\n{{/is_alert}}\n\n{{^is_recovery}}\n{{override_priority 'P5'}}\n### Confira os dashboards: \n- [System Metrics](https://app.datadoghq.com/dash/integration/1/system---metrics?tpl_var_scope=host:{{host.name}}&from_ts={{eval \"last_triggered_at_epoch-10*60*1000\"}}&to_ts={{eval \"last_triggered_at_epoch+10*60*1000\"}}&live=false)\n- [System - Networking](https://app.datadoghq.com/dash/integration/3/system---networking?tpl_var_scope=host:{{host.name}}&from_ts={{eval \"last_triggered_at_epoch-10*60*1000\"}}&to_ts={{eval \"last_triggered_at_epoch+10*60*1000\"}}&live=false)\n- [Infrastructure metrics](https://app.datadoghq.com/dashboard/ms9-458-5v8/infrastructure-metrics?tpl_var_host={{host.name}}&from_ts={{eval \"last_triggered_at_epoch-10*60*1000\"}}&to_ts={{eval \"last_triggered_at_epoch+10*60*1000\"}}&live=false)\n{{/is_recovery}} \n\n---\n\n@teams-yssy-tests \n\n---\n\n> _Desenvolvido pela **xxxxxxxx**. Dúvidas, acionar: xxxxxxxxxr_",
+    "tags": [
+        "infra",
+        "xxxx",
+        "env:producao"
+    ],
+    "options": {
+        "thresholds": {
+            "critical": 0.85,
+            "critical_recovery": 0
+        },
+        "notify_audit": true,
+        "require_full_window": false,
+        "notify_no_data": true,
+        "no_data_timeframe": 120,
+        "renotify_interval": 0,
+        "threshold_windows": {
+            "trigger_window": "last_1h",
+            "recovery_window": "last_1h"
+        },
+        "silenced": {},
+        "include_tags": true,
+        "escalation_message": "",
+        "new_group_delay": 120
+    },
+    "priority": null,
+    "restricted_roles": null
+}

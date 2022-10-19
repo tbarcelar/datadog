@@ -1,0 +1,12 @@
+$ baixar agent
+
+docker run -d --name dd-agent -v /var/run/docker.sock:/var/run/docker.sock:ro -v /proc/:/host/proc/:ro -v /sys/fs/cgroup/:/host/sys/fs/cgroup:ro -e DD_API_KEY=xxxxxxxxxxxxxxxx -e DD_SITE="datadoghq.com" gcr.io/datadoghq/agent:7
+
+
+Se desejar pode instalar através do compose (olha a pasta)
+
+Instalar o Docker Compose
+Clonar este repositório
+Atualize sua DD_API_KEYentradadocker-compose.yml
+Execute todos os contêineres comdocker-compose up
+Verifique no Datadog se seu contêiner pega as métricas docker e redis

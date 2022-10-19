@@ -1,0 +1,30 @@
+{
+    "id": 67387764,
+    "name": "[infra] Host {{host.name}} indisponível",
+    "type": "service check",
+    "query": "\"datadog.agent.up\".over(\"env:prd\").by(\"host\").last(2).count_by_status()",
+    "message": "# Host {{host.name}} não reportando ao Datadog\n \n @teams-xxxxxxx  @webhook-telegram",
+    "tags": [
+        "env:prd",
+        "env:prod",
+        "infra",
+        "xxxxxxx"
+    ],
+    "options": {
+        "notify_audit": true,
+        "timeout_h": 0,
+        "silenced": {},
+        "include_tags": true,
+        "thresholds": {
+            "warning": 1,
+            "ok": 1,
+            "critical": 1
+        },
+        "notify_no_data": true,
+        "renotify_interval": 0,
+        "escalation_message": "",
+        "no_data_timeframe": 60,
+        "new_group_delay": 60
+    },
+    "priority": 1
+}

@@ -1,0 +1,28 @@
+{
+    "id": 67390696,
+    "name": "[infra] Uso de memória RAM",
+    "type": "query alert",
+    "query": "avg(last_1h):(sum:system.mem.used{env:prd OR env:prod} by {host} / sum:system.mem.total{env:prd OR env:prod} by {host}) * 100 > 85",
+    "message": "## Uso de memória RAM muito elevado em host {{host.name}} \n \nDashboards úteis:\n- [Agilize EC2](https://app.datadoghq.com/dashboard/4xm-hhg-zyy/agilize-ec2)\n- [Uso de recursos](https://app.datadoghq.com/dashboard/i7c-emw-9nq/uso-de-recursos)\n- [Datadog System](https://app.datadoghq.com/dash/integration/1/system---metrics)\n \n@webhook-telegram  @teams-xxxxxxx",
+    "tags": [
+        "env:prd",
+        "env:prod",
+        "infra",
+        "xxxxxxx"
+    ],
+    "options": {
+        "notify_audit": false,
+        "silenced": {},
+        "include_tags": true,
+        "thresholds": {
+            "critical": 85,
+            "warning": 75
+        },
+        "require_full_window": false,
+        "notify_no_data": false,
+        "renotify_interval": 0,
+        "escalation_message": "",
+        "new_group_delay": 60
+    },
+    "priority": 2
+}

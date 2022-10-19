@@ -1,0 +1,32 @@
+{
+    "id": 68549357,
+    "name": "[infra] Anomaly: uso % de CPU total",
+    "type": "query alert",
+    "query": "avg(last_1d):anomalies(avg:system.cpu.user{*} by {host} + avg:system.cpu.system{*} by {host} + avg:system.cpu.stolen{*} by {host} + avg:system.cpu.iowait{*} by {host} + avg:system.cpu.guest{*} by {host}, 'basic', 3, direction='above', interval=300, alert_window='last_1h', count_default_zero='true') >= 1",
+    "message": "## Uso de CPU em host {{host.name}} durante toda a última 1h, em {{value}}.\n\nDashboards úteis:\n- [Agilize EC2](https://app.datadoghq.com/dashboard/4xm-hhg-zyy/agilize-ec2)\n- [Uso de recursos](https://app.datadoghq.com/dashboard/i7c-emw-9nq/uso-de-recursos)\n- [Datadog System](https://app.datadoghq.com/dash/integration/1/system---metrics)\n \n@webhook-telegram  @teams-xxxxxxxxxx",
+    "tags": [
+        "env:prd",
+        "env:prod",
+        "infra",
+        "xxxx"
+    ],
+    "options": {
+        "notify_audit": true,
+        "silenced": {},
+        "include_tags": true,
+        "thresholds": {
+            "critical": 1,
+            "critical_recovery": 0.75
+        },
+        "require_full_window": false,
+        "notify_no_data": false,
+        "renotify_interval": 0,
+        "escalation_message": "",
+        "threshold_windows": {
+            "recovery_window": "last_1h",
+            "trigger_window": "last_1h"
+        },
+        "new_group_delay": 60
+    },
+    "priority": 2
+}

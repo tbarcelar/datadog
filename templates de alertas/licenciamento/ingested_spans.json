@@ -1,0 +1,25 @@
+{
+	"id": 83714977,
+	"name": "[CLIENTE] Uso de licenciamento: Ingested Spans",
+	"type": "query alert",
+	"query": "sum(last_1mo):sum:datadog.estimated_usage.apm.ingested_bytes{*}.as_count() > 1200000000000",
+	"message": "{{^is_recovery}}\n## Consumo de licenças de Ingested Spans: _{{eval \"humanize_bytes(value)\"}}_\n\nLicenciado: **_{{eval \"humanize_bytes(threshold)\"}}/mês_**\n\nIngested Spans são incluídos pelas licenças de APM Hosts sendo 150GB incluídos para cada licença. O faturamento mensal é contabilizado pela soma cumulativa de spans indexados na ferramenta ao longo do mês. Ultrapassando o montante licenciado, o excedente é cobrado em On-Demand, por GB.\n\nConsulte:\n\n- [Datadog | Plan and Usage](https://app.datadoghq.com/billing/usage)\n- [Usage Monitors | Datadog (datadoghq.com)](https://app.datadoghq.com/monitors/manage?q=tag%3A%22licenciamento%22)\n\n--- \n\n_Esse é um alerta para controle de licenças configurado pela xxxxx. Para dúvidas, contate: xxxxxxxxxx_\n\n---\n\n@teams-xxxxxxxxxxxxxx \n{{/is_recovery}}",
+	"tags": [
+		"licenciamento"
+	],
+	"options": {
+		"thresholds": {
+			"critical": 1200000000000,
+			"warning": 1180000000000
+		},
+		"notify_audit": true,
+		"require_full_window": true,
+		"notify_no_data": false,
+		"renotify_interval": 0,
+		"silenced": {},
+		"include_tags": true,
+		"escalation_message": ""
+	},
+	"priority": 2,
+	"restricted_roles": null
+}

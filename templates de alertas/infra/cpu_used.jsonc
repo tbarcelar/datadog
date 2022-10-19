@@ -1,0 +1,28 @@
+{
+    "id": 67389713,
+    "name": "[infra] Uso % de CPU total",
+    "type": "query alert",
+    "query": "avg(last_1h):avg:system.cpu.user{*} by {host} + avg:system.cpu.system{*} by {host} + avg:system.cpu.stolen{*} by {host} + avg:system.cpu.iowait{*} by {host} + avg:system.cpu.guest{*} by {host} > 85",
+    "message": "## Uso de CPU muito elevado em host {{host.name}} \n\nO alerta soma o consumo de CPU de usuário, sistema, guest, stolen e iowait.\n \nDashboards úteis:\n- [Agilize EC2](https://app.datadoghq.com/dashboard/4xm-hhg-zyy/agilize-ec2)\n- [Uso de recursos](https://app.datadoghq.com/dashboard/i7c-emw-9nq/uso-de-recursos)\n- [Datadog System](https://app.datadoghq.com/dash/integration/1/system---metrics)\n \n@webhook-telegram  @teams-xxxxxxxxx",
+    "tags": [
+        "env:prd",
+        "env:prod",
+        "infra",
+        "xxxxxxx"
+    ],
+    "options": {
+        "notify_audit": false,
+        "silenced": {},
+        "include_tags": true,
+        "thresholds": {
+            "critical": 85,
+            "warning": 75
+        },
+        "require_full_window": false,
+        "notify_no_data": false,
+        "renotify_interval": 0,
+        "escalation_message": "",
+        "new_group_delay": 60
+    },
+    "priority": 2
+}

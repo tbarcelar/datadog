@@ -1,0 +1,24 @@
+{
+	"id": 78262266,
+	"name": "[CLIENTE] Uso de licenciamento: Infra Hosts",
+	"type": "query alert",
+	"query": "max(last_1d):max:datadog.estimated_usage.hosts{*}.rollup(max, 86400) > 8",
+	"message": "{{^is_recovery}}\n## Consumo de licenças de Infra Pro+ Hosts: _{{value}}_\n\nLicenciado: **_{{threshold}} hosts_**\n\nO faturamento mensal é contabilizado utilizando a contagem do percentil 99 de todos os hosts ativos a cada hora ao longo do mês. Ao ultrapassar o licenciamento, a cobrança On-Demand é feita por horas que cada host excedente do licenciado permaneceu ativo.\n\nConsulte:\n\n- [Datadog | Plan and Usage](https://app.datadoghq.com/billing/usage)\n- [Usage Monitors | Datadog (datadoghq.com)](https://app.datadoghq.com/monitors/manage?q=tag%3A%22licenciamento%22)\n\n--- \n\n_Esse é um alerta para controle de licenças configurado pela xxxxxxx. Para dúvidas, contate: xxxxxxxxxxxxxxx_\n\n---\n\n@teams-xxxxxxxxxxxxx \n{{/is_recovery}}",
+	"tags": [
+		"licenciamento"
+	],
+	"options": {
+		"thresholds": {
+			"critical": 8
+		},
+		"notify_audit": true,
+		"require_full_window": false,
+		"notify_no_data": false,
+		"renotify_interval": 0,
+		"silenced": {},
+		"include_tags": true,
+		"escalation_message": ""
+	},
+	"priority": 2,
+	"restricted_roles": null
+}

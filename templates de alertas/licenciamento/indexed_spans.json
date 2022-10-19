@@ -1,0 +1,25 @@
+{
+	"id": 78262871,
+	"name": "[CLIENTE] Uso de licenciamento: Indexed Spans",
+	"type": "query alert",
+	"query": "sum(last_1mo):sum:datadog.estimated_usage.apm.indexed_spans{*}.as_count() > 8000000",
+	"message": "{{^is_recovery}}\n## Consumo de licenças de Indexed Spans (15 dias de retenção): _{{value}}_\n\nLicenciado: **_{{threshold}} spans indexados/mês_**\n\nIndexed Spans são incluídos pelas licenças de APM Hosts sendo 1M de eventos incluídos para cada licença. O faturamento mensal é contabilizado pela soma cumulativa de spans indexados na ferramenta ao longo do mês. Ultrapassando o montante licenciado, o excedente é cobrado em On-Demand, por milhão.\n\nConsulte:\n\n- [Datadog | Plan and Usage](https://app.datadoghq.com/billing/usage)\n- [Usage Monitors | Datadog (datadoghq.com)](https://app.datadoghq.com/monitors/manage?q=tag%3A%22licenciamento%22)\n\n--- \n\n_Esse é um alerta para controle de licenças configurado pela xxxxxxxxx. Para dúvidas, contate: pxxxxxxxxxxxxxxx_\n\n---\n\n@teams-xxxxxxxxxxx \n{{/is_recovery}}",
+	"tags": [
+		"licenciamento"
+	],
+	"options": {
+		"thresholds": {
+			"critical": 8000000,
+			"warning": 7200000
+		},
+		"notify_audit": true,
+		"require_full_window": true,
+		"notify_no_data": false,
+		"renotify_interval": 0,
+		"silenced": {},
+		"include_tags": true,
+		"escalation_message": ""
+	},
+	"priority": 2,
+	"restricted_roles": null
+}

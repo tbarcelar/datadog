@@ -1,0 +1,28 @@
+{
+    "id": 70070141,
+    "name": "[infra] Uso do espaço em disco",
+    "type": "query alert",
+    "query": "avg(last_1h):(sum:system.disk.used{env:prd OR env:prod OR env:producao OR env:production} by {host,device} / sum:system.disk.total{env:prd OR env:prod OR env:producao OR env:production} by {host,device}) * 100 > 90",
+    "message": "{{#is_alert}}\n{{override_priority 'P1'}}\n### {{local_time 'last_triggered_at' 'America/Sao_Paulo'}}\n## Consumo de espaço em disco próximo ao limite em {{value}}% da unidade {{device.name}} em {{host.name}}.\nPrimeiro acionamento em: **{{local_time 'first_triggered_at' 'America/Sao_Paulo'}}**\n{{/is_alert}}\n\n{{#is_warning}}\n{{override_priority 'P4'}}\n### {{local_time 'last_triggered_at' 'America/Sao_Paulo'}}\n## Uso de espaço em disco em {{value}}% da unidade {{device.name}} em {{host.name}}.\nPrimeiro acionamento em: **{{local_time 'first_triggered_at' 'America/Sao_Paulo'}}**\n{{/is_warning}}\n\n{{^is_recovery}}\n### Confira os dashboards: \n- [System Metrics](https://app.datadoghq.com/dash/integration/1/system---metrics?tpl_var_scope=host:{{host.name}}&from_ts={{eval \"last_triggered_at_epoch-10*60*1000\"}}&to_ts={{eval \"last_triggered_at_epoch+10*60*1000\"}}&live=false)\n{{/is_recovery}} \n\n---\n\n> _Desenvolvido pela **xxx**. Dúvidas, acionar: xxxxs@xxx.com.br_  ",
+    "tags": [
+        "xxx",
+        "env:producao"
+    ],
+    "options": {
+        "thresholds": {
+            "critical": 90,
+            "warning": 75
+        },
+        "notify_audit": true,
+        "require_full_window": false,
+        "notify_no_data": true,
+        "renotify_interval": 0,
+        "silenced": {},
+        "include_tags": true,
+        "escalation_message": "",
+        "new_group_delay": 60,
+        "no_data_timeframe": 120
+    },
+    "priority": null,
+    "restricted_roles": null
+}

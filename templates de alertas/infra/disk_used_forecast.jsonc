@@ -1,0 +1,31 @@
+{
+    "id": 67391399,
+    "name": "[infra] Disco {{device.name}} está quase cheio no host {{host.name}}",
+    "type": "query alert",
+    "query": "max(next_3d):forecast((1 - avg:system.disk.free{env:prd OR env:prod} by {host,device} / avg:system.disk.total{env:prd OR env:prod} by {host,device}) * 100, 'seasonal', 1, model='default', interval='60m', history='1w', seasonality='daily', timezone='utc') >= 99",
+    "message": "Device {{device.name}} no {{host.name}} está projetando exceder {{threshold}} da capacidade total com {{value}}% nos próximos 3 dias \n\nVerifique o dashboard [Agilize EC2](https://app.datadoghq.com/dashboard/4xm-hhg-zyy/agilize-ec2)\n \n@webhook-telegram @teams-xxxxxx",
+    "tags": [
+        "env:prd",
+        "env:prod",
+        "infra",
+        "xxxxx"
+    ],
+    "options": {
+        "notify_audit": false,
+        "timeout_h": 0,
+        "silenced": {},
+        "include_tags": true,
+        "thresholds": {
+            "critical": 99,
+            "critical_recovery": 89
+        },
+        "require_full_window": false,
+        "notify_no_data": false,
+        "renotify_interval": 0,
+        "evaluation_delay": 300,
+        "escalation_message": "",
+        "no_data_timeframe": null,
+        "new_group_delay": 300
+    },
+    "priority": 3
+}

@@ -1,0 +1,25 @@
+{
+	"id": 78262437,
+	"name": "[CLIENTE] Uso de licenciamento: Ingested Logs",
+	"type": "query alert",
+	"query": "sum(last_1mo):sum:datadog.estimated_usage.logs.ingested_bytes{*}.as_count() > 150000000000",
+	"message": "{{^is_recovery}}\n## Consumo de licenças de Ingested Logs: _{{eval \"humanize_bytes(value)\"}}_\n\nLicenciado: **_{{eval \"humanize_bytes(threshold)\"}}/mês_**\n\nO faturamento mensal é contabilizado pela soma cumulativa do volume de logs em bytes ingeridos pela ferramenta ao longo do mês. Ultrapassando o montante licenciado, o excedente é cobrado em On-Demand.\n\nConsulte:\n\n- [Datadog | Plan and Usage](https://app.datadoghq.com/billing/usage)\n- [Usage Monitors | Datadog (datadoghq.com)](https://app.datadoghq.com/monitors/manage?q=tag%3A%22licenciamento%22)\n\n--- \n\n_Esse é um alerta para controle de licenças configurado pela xxxxxxxxx. Para dúvidas, contate: xxxxxxxxxxxx_\n\n---\n\n@teamsxxxxxxxxxx\n{{/is_recovery}}",
+	"tags": [
+		"licenciamento"
+	],
+	"options": {
+		"thresholds": {
+			"critical": 150000000000,
+			"warning": 135000000000
+		},
+		"notify_audit": true,
+		"require_full_window": true,
+		"notify_no_data": false,
+		"renotify_interval": 0,
+		"silenced": {},
+		"include_tags": true,
+		"escalation_message": ""
+	},
+	"priority": 2,
+	"restricted_roles": null
+}
